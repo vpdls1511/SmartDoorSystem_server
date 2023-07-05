@@ -1,10 +1,19 @@
 const response = require('../common/response');
-exports.registerBluePrint = (req, res) => {
-  const {data} = req.body
+const db = require('../_db/dbConn')
+const drawRepository = require('./admin.draw.repository')
+
+exports.registerBluePrint = async (req, res) => {
+  const data = JSON.parse(req.body.data)
   const file = req.file
+  let strParams = ''
 
-  console.log(JSON.parse(data))
-  console.log(file)
+  const building = await db.query(drawRepository.saveBuilding, [data.buildName, data.floor])
+  for(const temp of data.room){
+    strParams += `(${building.insertId},${temp.roomNo}, "${temp.professorName}", ${temp.size}, ${temp.users}),`
+  }
+  strParams = strParams.substr(0, strParams.length - 1)
 
-  response(res).SUCCESS('good', JSON.parse(data))
+  await db.query(drawRepository.saveRooms(strParams))
+
+  response(res).SUCCESS('good', data)
 }

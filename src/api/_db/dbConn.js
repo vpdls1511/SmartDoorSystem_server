@@ -22,9 +22,10 @@ module.exports = {
         else
           conn.query(sql, params, (err, data) => {
 
-            if (err)
+            if (err) {
+              console.log(sql)
               rejected(err)
-            else
+            } else
               resolve(data)
             console.log('connection is returned..')
             conn.release()
