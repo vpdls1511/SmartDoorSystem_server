@@ -1,8 +1,10 @@
 exports.registerBluePrint = (request, response) => {
-  const drawItem = request
+  const {data} = request.body
+  const file = request.file
 
 
-  console.log(drawItem)
+  console.log(JSON.parse(data))
+  console.log(file)
 
 
   response.send('test')

@@ -124,7 +124,6 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
-.idea
 
 # yarn v2
 .yarn/cache
@@ -143,3 +142,7 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+
+# Custom
+.idea
+static
