@@ -1,11 +1,10 @@
-exports.registerBluePrint = (request, response) => {
-  const {data} = request.body
-  const file = request.file
-
+const response = require('../common/response');
+exports.registerBluePrint = (req, res) => {
+  const {data} = req.body
+  const file = req.file
 
   console.log(JSON.parse(data))
   console.log(file)
 
-
-  response.send('test')
+  response(res).SUCCESS('good', JSON.parse(data))
 }
