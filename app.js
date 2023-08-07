@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 
 const api = require('./src/api')
 
@@ -8,6 +9,7 @@ const port = 8001
 /******* Options *******/
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(cors({ origin: '*' }))
 
 /******* Router *******/
 app.use('/api', api)

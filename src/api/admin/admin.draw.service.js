@@ -4,7 +4,7 @@ const drawRepository = require('./admin.draw.repository')
 
 exports.registerBluePrint = async (req, res) => {
   const data = JSON.parse(req.body.data)
-  const file = req.file
+  const {path, mimetype, filename, originalname} = req.file
   let strParams = ''
 
   const building = await db.query(drawRepository.saveBuilding, [data.buildName, data.floor])
@@ -14,6 +14,7 @@ exports.registerBluePrint = async (req, res) => {
   strParams = strParams.substr(0, strParams.length - 1)
 
   await db.query(drawRepository.saveRooms(strParams))
+  await db.query(drawRepository.saveBluePrint, [1, building.insertId, path, mimetype, filename, originalname])
 
   response(res).SUCCESS('good', data)
 }

@@ -4,7 +4,6 @@ const fs = require("fs");
 const path = require("path");
 
 exports.multerUpload = (category) => {
-
   const storage = multer.diskStorage({
     destination: async (request, file, callback) => {
       const dirPath = `static/${category}/` + moment().format('YYYY/MM/DD')
@@ -23,6 +22,7 @@ exports.multerUpload = (category) => {
       callback(null, `${Date.now()}` + `${path.extname(file.originalname)}`)
     }
   })
+
   return multer({
     storage: storage
   })
