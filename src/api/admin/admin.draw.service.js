@@ -16,5 +16,20 @@ exports.registerBluePrint = async (req, res) => {
   await db.query(drawRepository.saveRooms(strParams))
   await db.query(drawRepository.saveBluePrint, [1, building.insertId, path, mimetype, filename, originalname])
 
-  response(res).SUCCESS('good', data)
+  response(res)
+    .SUCCESS('good', data)
+}
+
+exports.getBluePrint = async (req, res) => {
+  const {} = req.body
+
+  let copy = [...await db.query(drawRepository.getBluePrint)]
+
+  for(let it of copy){
+    it.room = JSON.parse(it.room)
+  }
+
+  response(res)
+    .SUCCESS('GOOD', copy)
+  r
 }

@@ -5,5 +5,6 @@ const {multerUpload} = require("../../utils/uploads/upload");
 
 router.route('/draw')
   .post(multerUpload('blueprint').single('file'), drawService.registerBluePrint)
+  .get(drawService.getBluePrint)
 
 module.exports = router
