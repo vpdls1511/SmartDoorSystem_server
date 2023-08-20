@@ -18,7 +18,7 @@ select
         JSON_OBJECT(
             'build', r.building,
             'room_no', r.room_no,
-            'professor_name ', r.professor_name,
+            'professor_name', r.professor_name,
             'room_size', r.room_size ,
             'max_user', r.max_user
         )) as 'room'

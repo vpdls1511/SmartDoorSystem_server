@@ -31,5 +31,4 @@ exports.getBluePrint = async (req, res) => {
 
   response(res)
     .SUCCESS('GOOD', copy)
-  r
 }
