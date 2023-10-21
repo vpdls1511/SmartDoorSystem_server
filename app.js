@@ -12,6 +12,7 @@ app.use(express.json())
 app.use(cors({ origin: '*' }))
 
 /******* Router *******/
+app.use('/static', express.static('static'));
 app.use('/api', api)
 
 app.listen(port, () => {
