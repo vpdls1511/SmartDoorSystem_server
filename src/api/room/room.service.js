@@ -17,3 +17,17 @@ exports.getAllRoom = async (req, res) => {
       .BAD_REQUEST(e.message)
   }
 }
+
+exports.getRoomDetail = async (req, res) => {
+  try {
+    const {id} = req.query
+
+    const result = await db.query(roomRepository.getRoomDetailQuery, [id])
+
+    response(res)
+      .SUCCESS('정상적으로 조회되었습니다.', result)
+  } catch (e) {
+    response(res)
+      .BAD_REQUEST(e.message)
+  }
+}
