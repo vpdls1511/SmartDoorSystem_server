@@ -32,3 +32,48 @@ exports.getBluePrint = async (req, res) => {
   response(res)
     .SUCCESS('GOOD', copy)
 }
+
+exports.editRoom = async (req, res) => {
+  const {id, build, room_no, room_size, max_user, professor_name} = req.body
+
+  await db.query(drawRepository.updateRoom, [build, room_no, room_size, max_user, professor_name, id])
+  // const result = await db.query(drawRepository.getRoom, [id])
+
+  response(res)
+    .SUCCESS('GOOD', {
+      // ...result
+    })
+}
+
+exports.deleteRoom = async (req, res) => {
+  const {id} = req.body
+
+  await db.query(drawRepository.deleteRoom, [id])
+
+  response(res)
+    .SUCCESS('GOOD')
+}
+
+exports.addRoom = async (req, res) => {
+  const {build, room_no, room_size, max_user, professor_name} = req.body
+
+  // console.log(req.body)
+  await db.query(drawRepository.insertRoom, [build, room_no, room_size, parseFloat(max_user), professor_name])
+  // const result = await db.query(drawRepository.getRoom, [id])
+
+  response(res)
+    .SUCCESS('GOOD', {
+      // ...result
+    })
+}
+
+exports.deleteBuild = async (req, res) => {
+  const {id} = req.body
+
+  await db.query(drawRepository.deleteBuild, [id])
+
+  response(res)
+    .SUCCESS('GOOD', {
+      // ...result
+    })
+}
