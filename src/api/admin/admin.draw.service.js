@@ -68,11 +68,20 @@ exports.addRoom = async (req, res) => {
 }
 
 exports.editBuild = async (req, res) => {
-  const {id, name, floor} = req.body
+  const {id, name, floor, building_order} = req.body
 
   // console.log(req.body)
   await db.query(drawRepository.updateBuild, [name, floor, id])
   // const result = await db.query(drawRepository.getRoom, [id])
+
+
+  const isOrder = await db.query(drawRepository.getBuildOrder, [building_order])
+
+  if(isOrder) {
+    await db.query(drawRepository.updeteExistingOrder, [building_order])
+  }
+
+  await db.query(drawRepository.updateOrder, [building_order, id])
 
   response(res)
     .SUCCESS('GOOD', {

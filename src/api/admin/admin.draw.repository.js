@@ -10,6 +10,7 @@ exports.getBluePrint = `
                    JSON_OBJECT(
                            'id', r.id,
                            'build', r.building,
+                           'room_order', r.room_order,
                            'room_no', r.room_no,
                            'professor_name', r.professor_name,
                            'room_size', r.room_size,
@@ -18,7 +19,8 @@ exports.getBluePrint = `
                ) as room
     from room r
              join building b on b.id = r.building
-    group by b.name;
+    group by b.name
+    ORDER BY b.building_order ASC, r.room_order ASC
 `
 
 exports.updateRoom = `  UPDATE room
@@ -38,6 +40,15 @@ exports.deleteRoom = `DELETE
                       WHERE id = ?`
 
 exports.insertRoom = `INSERT INTO room(building, room_no, room_size, max_user, professor_name) value (?,?,?,?,?)`
+
+// 순서결정
+exports.getBuildOrder = `
+  SELECT * FROM building WHERE building_order = ?
+`
+exports.updeteExistingOrder = `
+  UPDATE building SET building_order = building_order + 1 WHERE building_order >= ?  
+`
+exports.updateOrder = `UPDATE building SET building_order = ? WHERE id =?`
 
 exports.updateBuild = `UPDATE building
                        SET name  = ?,
