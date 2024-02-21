@@ -13,6 +13,7 @@ router.delete('/room', drawService.deleteRoom)
 
 router.route('/build')
   .post(drawService.addRoom)
+  .put(drawService.editBuild)
   .delete(drawService.deleteBuild)
 
 module.exports = router

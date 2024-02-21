@@ -67,6 +67,19 @@ exports.addRoom = async (req, res) => {
     })
 }
 
+exports.editBuild = async (req, res) => {
+  const {id, name, floor} = req.body
+
+  // console.log(req.body)
+  await db.query(drawRepository.updateBuild, [name, floor, id])
+  // const result = await db.query(drawRepository.getRoom, [id])
+
+  response(res)
+    .SUCCESS('GOOD', {
+      // ...result
+    })
+}
+
 exports.deleteBuild = async (req, res) => {
   const {id} = req.body
 
