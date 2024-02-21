@@ -8,6 +8,7 @@ exports.getAllRoom = async (req, res) => {
 
     for(let it of result){
       it.room = JSON.parse(it.room)
+      it.room.sort((a, b) => a.room_order - b.room_order); // ASC 정렬
     }
 
     response(res)

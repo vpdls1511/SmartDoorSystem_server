@@ -27,6 +27,7 @@ exports.getBluePrint = async (req, res) => {
 
   for(let it of copy){
     it.room = JSON.parse(it.room)
+    it.room.sort((a, b) => a.room_order - b.room_order); // ASC 정렬
   }
 
   response(res)
@@ -34,10 +35,20 @@ exports.getBluePrint = async (req, res) => {
 }
 
 exports.editRoom = async (req, res) => {
-  const {id, build, room_no, room_size, max_user, professor_name} = req.body
+  const {id, build, room_no, room_size, max_user, professor_name, room_order} = req.body
+
+  console.log(room_order)
 
   await db.query(drawRepository.updateRoom, [build, room_no, room_size, max_user, professor_name, id])
   // const result = await db.query(drawRepository.getRoom, [id])
+
+  const isOrder = await db.query(drawRepository.getRoomOrder, [room_order])
+
+  if(isOrder) {
+    await db.query(drawRepository.updeteRoomExistingOrder, [room_order])
+  }
+
+  await db.query(drawRepository.updateRoomOrder, [room_order, id])
 
   response(res)
     .SUCCESS('GOOD', {

@@ -15,12 +15,12 @@ exports.getBluePrint = `
                            'professor_name', r.professor_name,
                            'room_size', r.room_size,
                            'max_user', r.max_user
-                       )
+                       ) 
                ) as room
     from room r
              join building b on b.id = r.building
     group by b.name
-    ORDER BY b.building_order ASC, r.room_order ASC
+    ORDER BY b.building_order ASC
 `
 
 exports.updateRoom = `  UPDATE room
@@ -41,7 +41,16 @@ exports.deleteRoom = `DELETE
 
 exports.insertRoom = `INSERT INTO room(building, room_no, room_size, max_user, professor_name) value (?,?,?,?,?)`
 
-// 순서결정
+// 방 순서결정
+exports.getRoomOrder = `
+  SELECT * FROM room WHERE room_order = ?
+`
+exports.updeteRoomExistingOrder = `
+  UPDATE room SET room_order = room_order + 1 WHERE room_order >= ?  
+`
+exports.updateRoomOrder = `UPDATE room SET room_order = ? WHERE id =?`
+
+// 건물 순서결정
 exports.getBuildOrder = `
   SELECT * FROM building WHERE building_order = ?
 `
